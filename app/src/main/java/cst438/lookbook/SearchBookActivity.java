@@ -1,13 +1,81 @@
 package cst438.lookbook;
 
-import android.support.v7.app.AppCompatActivity;
+//import android.support.v7.app.AppCompatActivity;
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
 
-public class SearchBookActivity extends AppCompatActivity {
+public class SearchBookActivity extends Activity implements View.OnClickListener {
+
+    private String name;
+    private EditText usernameInput;
+
+    private String password;
+    private EditText passwordInput;
+
+    private Button submitLoginButton;
+
+    private TextView newAccount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_book);
+
+        usernameInput = (EditText) findViewById(R.id.username_input);
+        passwordInput = (EditText) findViewById(R.id.password_input);
+
+        submitLoginButton = (Button) findViewById(R.id.submit_login);
+        submitLoginButton.setOnClickListener(this);
+
+        newAccount = (TextView) findViewById(R.id.new_account);
+        newAccount.setOnClickListener(this);
+    }
+
+    @Override
+    public void onClick(View v) {
+
+        switch (v.getId())
+        {
+            case R.id.submit_login:
+                name = usernameInput.getText().toString();
+                password = passwordInput.getText().toString();
+
+                if(name.equals("") || password.equals(""))
+                {
+                    Toast.makeText(this, "Please enter username and password", Toast.LENGTH_SHORT).show();
+                }
+                else
+                {
+                    Toast.makeText(this, "Login under development", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "Username: " + name + " Password: " + password, Toast.LENGTH_SHORT).show();
+
+
+                    //_____________________________________________________________________________________
+                    //passing values to next activity
+                    //use:
+                    // String name = getIntent().getStringExtra("username");
+                    // String password = getIntent().getStringExtra("userPassword");
+                    Intent intent = new Intent(getBaseContext(), SearchBookActivity.class);
+                    intent.putExtra("username", name);
+                    intent.putExtra("userPassword", password);
+                    startActivity(intent);
+                    //-----------------------------------------------------------------------------------
+                }
+
+                break;
+
+            case R.id.new_account:
+                Toast.makeText(this, "New User under development", Toast.LENGTH_SHORT).show();
+
+                break;
+        }
+
+
     }
 }
