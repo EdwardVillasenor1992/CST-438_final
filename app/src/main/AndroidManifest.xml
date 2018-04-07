@@ -15,7 +15,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".SearchBookActivity"></activity>
+        <activity android:name=".SearchBookActivity" />
+        <activity android:name=".NewUser"></activity>
     </application>
 
 </manifest>

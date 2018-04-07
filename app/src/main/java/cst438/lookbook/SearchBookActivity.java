@@ -4,6 +4,7 @@ package cst438.lookbook;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -11,7 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class SearchBookActivity extends Activity implements View.OnClickListener {
-
+    static final String TAG = "MainActivity";
     private String name;
     private EditText usernameInput;
 
@@ -19,8 +20,9 @@ public class SearchBookActivity extends Activity implements View.OnClickListener
     private EditText passwordInput;
 
     private Button submitLoginButton;
+    private Button mCreateAccountButton;
 
-    private TextView newAccount;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,8 +35,21 @@ public class SearchBookActivity extends Activity implements View.OnClickListener
         submitLoginButton = (Button) findViewById(R.id.submit_login);
         submitLoginButton.setOnClickListener(this);
 
-        newAccount = (TextView) findViewById(R.id.new_account);
-        newAccount.setOnClickListener(this);
+        mCreateAccountButton = (Button) findViewById(R.id.create_account);
+
+        // create button take users to new page to create account
+        mCreateAccountButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String cypher = "";
+                Log.d(TAG, "Button works");
+
+                Intent intent = new Intent(SearchBookActivity.this,NewUser.class);
+                startActivity(intent);
+            }
+
+
+        });
     }
 
     @Override
@@ -70,10 +85,6 @@ public class SearchBookActivity extends Activity implements View.OnClickListener
 
                 break;
 
-            case R.id.new_account:
-                Toast.makeText(this, "New User under development", Toast.LENGTH_SHORT).show();
-
-                break;
         }
 
 
