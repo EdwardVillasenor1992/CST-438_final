@@ -67,6 +67,8 @@ public class SearchBookActivity extends Activity implements View.OnClickListener
                 }
                 else
                 {
+
+
                     Toast.makeText(this, "Login under development", Toast.LENGTH_SHORT).show();
                     Toast.makeText(this, "Username: " + name + " Password: " + password, Toast.LENGTH_SHORT).show();
 

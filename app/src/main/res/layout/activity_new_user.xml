@@ -80,7 +80,7 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="45dp"
-        android:onClick="MY_FANCY_FUN"
+        android:onClick="sign_up"
         android:text="Sign Up" />
 
 
