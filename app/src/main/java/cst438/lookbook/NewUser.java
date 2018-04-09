@@ -52,12 +52,12 @@ public class NewUser extends AppCompatActivity {
 
                 if(checkPassword(mPassString, mConfirmPassString))
                 {
-                    Toast.makeText(getApplicationContext(), "same",
+                    Toast.makeText(getApplicationContext(), "great",
                             Toast.LENGTH_LONG).show();
                 }
                 else
                 {
-                    Toast.makeText(getApplicationContext(), "you fucked up",
+                    Toast.makeText(getApplicationContext(), "password not the same",
                             Toast.LENGTH_LONG).show();
                 }
 
