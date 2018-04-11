@@ -49,6 +49,7 @@ public class NewUser extends AppCompatActivity {
         mSignUpBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                // Edit Text converted to string
                 mUserString = mUsername.getText().toString();
                 mPassString = mPassword.getText().toString();
                 mEmailString = mEmail.getText().toString();
@@ -56,6 +57,8 @@ public class NewUser extends AppCompatActivity {
                 mLastNameString = mLastName.getText().toString();
                 mConfirmPassString = mConfirmPass.getText().toString();
 
+
+                // if statement creates a new user and confirms
                 if(checkPassword(mPassString, mConfirmPassString))
                 {
                     if(checkUsername(mUserString))
@@ -77,6 +80,8 @@ public class NewUser extends AppCompatActivity {
                         alertDialog.show();
                     }
                 }
+
+                // else statement lets user know that the password and confirm password is not the same
                 else
                 {
                     Toast.makeText(getApplicationContext(), "password not the same",
@@ -90,6 +95,18 @@ public class NewUser extends AppCompatActivity {
             // method checks to make sure that both passwords are the same.
             public boolean checkPassword(String password, String confirmPassword)
             {
+                if(password.length() < 5)
+                {
+                    mPassword.setError("must use 5 characters or more");
+                    return false;
+                }
+                if(!password.matches(".\\d+."))
+                {
+                    mPassword.setError("must contain a number");
+                    return false;
+                }
+
+
                 if(password.equals(confirmPassword))
                     return true;
                 else
@@ -99,6 +116,7 @@ public class NewUser extends AppCompatActivity {
                 }
             }
 
+            // method checks to make sure that username is valid in the system
             public boolean checkUsername(String username)
             {
                 if(db.userTableDao().findUsersByUsername(username)==null)
