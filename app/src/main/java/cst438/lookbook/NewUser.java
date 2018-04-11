@@ -1,5 +1,7 @@
 package cst438.lookbook;
 
+import android.content.DialogInterface;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -25,6 +27,8 @@ public class NewUser extends AppCompatActivity {
 
     private Button mSignUpBtn;
 
+    private LookBookDB db;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +44,8 @@ public class NewUser extends AppCompatActivity {
 
         mSignUpBtn = findViewById(R.id.new_user_signup);
 
+        db = LookBookDB.getInstance(this);
+
         mSignUpBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -54,8 +60,21 @@ public class NewUser extends AppCompatActivity {
                 {
                     if(checkUsername(mUserString))
                     {
-                        Toast.makeText(getApplicationContext(), "to be continued",
-                                Toast.LENGTH_LONG).show();
+                        UserTable user = new UserTable(mFirstNameString,mLastNameString,mEmailString,
+                                mUserString,mPassString);
+                        db.userTableDao().addUser(user);
+
+                        AlertDialog.Builder builder = new AlertDialog.Builder(NewUser.this);
+                        builder.setTitle("1 new account");
+                        builder.setMessage("your account has been created");
+                        builder.setPositiveButton("ok", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which){
+                                finish();
+                            }
+                        });
+                        AlertDialog alertDialog = builder.create();
+                        alertDialog.show();
                     }
                 }
                 else
@@ -82,7 +101,25 @@ public class NewUser extends AppCompatActivity {
 
             public boolean checkUsername(String username)
             {
-                return true;
+                if(db.userTableDao().findUsersByUsername(username)==null)
+                    return true;
+                else
+                {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(NewUser.this);
+                    builder.setTitle("Already in use");
+                    builder.setMessage("Please try another username");
+                    builder.setPositiveButton("ok", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which){
+
+                        }
+                    });
+                    AlertDialog alertDialog = builder.create();
+                    alertDialog.show();
+                    return false;
+                }
+
+
             }
         });
 
