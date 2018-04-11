@@ -9,11 +9,13 @@ import android.util.Log;
 
 import java.util.Calendar;
 
-@Database(entities = {UserTable.class}, version = 1, exportSchema = false)
+@Database(entities = {UserTable.class, WishListTable.class}, version = 2, exportSchema = false)
 //@TypeConverters({DateConverter.class})
 public abstract class LookBookDB extends RoomDatabase {
     private static LookBookDB sLookBookDB;
-    public abstract UserTableDao userTableDao ();
+
+    public abstract UserTableDao userTableDao();
+    public abstract WishListTableDao wishListTableDao();
 
     private static final Object sLock = new Object();
 

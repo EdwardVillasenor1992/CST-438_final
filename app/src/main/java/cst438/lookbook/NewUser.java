@@ -58,6 +58,8 @@ public class NewUser extends AppCompatActivity {
                 mConfirmPassString = mConfirmPass.getText().toString();
 
 
+                checkFormat(mUserString, mEmailString,mFirstNameString,mLastNameString);
+
                 // if statement creates a new user and confirms
                 if(checkPassword(mPassString, mConfirmPassString))
                 {
@@ -137,6 +139,22 @@ public class NewUser extends AppCompatActivity {
                     return false;
                 }
 
+
+            }
+
+            public void checkFormat(String username, String email, String fname, String lname)
+            {
+                if(username.length() == 0)
+                    mUsername.setError("cannot be blank");
+
+                if(fname.length() == 0)
+                    mFirstName.setError("cannot be blank");
+
+                if(lname.length() == 0)
+                    mLastName.setError("cannot be blank");
+
+                if(email.length() == 0)
+                    mEmail.setError("cannot be blank");
 
             }
         });
