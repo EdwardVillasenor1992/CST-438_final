@@ -52,8 +52,11 @@ public class NewUser extends AppCompatActivity {
 
                 if(checkPassword(mPassString, mConfirmPassString))
                 {
-                    Toast.makeText(getApplicationContext(), "great",
-                            Toast.LENGTH_LONG).show();
+                    if(checkUsername(mUserString))
+                    {
+                        Toast.makeText(getApplicationContext(), "to be continued",
+                                Toast.LENGTH_LONG).show();
+                    }
                 }
                 else
                 {
@@ -64,13 +67,22 @@ public class NewUser extends AppCompatActivity {
 
             }
 
+
+            // method checks to make sure that both passwords are the same.
             public boolean checkPassword(String password, String confirmPassword)
             {
                 if(password.equals(confirmPassword))
                     return true;
                 else
+                {
+                    mConfirmPass.setError("passwords do not match");
                     return false;
+                }
+            }
 
+            public boolean checkUsername(String username)
+            {
+                return true;
             }
         });
 

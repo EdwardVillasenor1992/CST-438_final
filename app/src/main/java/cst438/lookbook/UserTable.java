@@ -26,8 +26,7 @@ public class UserTable {
     public String mPassword;
 
 
-    public UserTable(int mId, String mFirstName, String mLastName, String mEmail, String mUsername, String mPassword) {
-        this.mId = mId;
+    public UserTable(String mFirstName, String mLastName, String mEmail, String mUsername, String mPassword) {
         this.mFirstName = mFirstName;
         this.mLastName = mLastName;
         this.mEmail = mEmail;

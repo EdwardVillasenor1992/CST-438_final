@@ -22,12 +22,16 @@ public class SearchBookActivity extends Activity implements View.OnClickListener
     private Button submitLoginButton;
     private Button mCreateAccountButton;
 
+    private LookBookDB db;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_book);
+
+        db = LookBookDB.getInstance(this);
+        db.populateInitialData();
 
         usernameInput = (EditText) findViewById(R.id.username_input);
         passwordInput = (EditText) findViewById(R.id.password_input);
