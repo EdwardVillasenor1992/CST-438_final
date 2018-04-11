@@ -37,7 +37,17 @@ public class SearchBookActivity extends Activity implements View.OnClickListener
         passwordInput = (EditText) findViewById(R.id.password_input);
 
         submitLoginButton = (Button) findViewById(R.id.submit_login);
-        submitLoginButton.setOnClickListener(this);
+        submitLoginButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.d(TAG, "Starting search book activity");
+
+                Intent intent = new Intent(SearchBookActivity.this,MainSearchBooks.class);
+                startActivity(intent);
+            }
+
+
+        });
 
         mCreateAccountButton = (Button) findViewById(R.id.create_account);
 
