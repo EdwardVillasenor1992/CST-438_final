@@ -18,7 +18,8 @@
         </activity>
         <activity android:name=".SearchBookActivity" />
         <activity android:name=".NewUser"></activity>
-        <activity android:name=".MainSearchBooks" />
+        <activity android:name=".MainSearchBooks"
+            android:windowSoftInputMode="adjustPan"/>
     </application>
 
 </manifest>
