@@ -36,8 +36,6 @@ public class MainSearchBooks extends Activity implements View.OnClickListener  {
     // Variables for the search input field, and results TextViews.
 
     private ListView lvBook;
-    private BookListAdapter adapter;
-    private List<Book> mBookList;
 
     private EditText mBookInput;
     private TextView mTitleText;
@@ -46,23 +44,6 @@ public class MainSearchBooks extends Activity implements View.OnClickListener  {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_search_books);
-
-        lvBook = (ListView)findViewById(R.id.listview_books) ;
-        mBookList = new ArrayList<>();
-
-        mBookList.add(new Book(1,"Book1","Author1","url1"));
-        mBookList.add(new Book(2,"Book2","Author2","url2"));
-        mBookList.add(new Book(3,"Book3","Author3","url3"));
-
-        adapter = new BookListAdapter(getApplicationContext(), mBookList);
-        lvBook.setAdapter(adapter);
-
-        lvBook.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Toast.makeText(getApplicationContext(), "Clicked product id : " + view.getTag(), Toast.LENGTH_SHORT).show();
-            }
-        });
 
         // Initialize all the view variables.
         mBookInput = (EditText)findViewById(R.id.title_input);
@@ -88,6 +69,8 @@ public class MainSearchBooks extends Activity implements View.OnClickListener  {
      * @param view The view (Button) that was clicked.
      */
     public void searchBooks(View view) {
+        lvBook = (ListView)findViewById(R.id.listview_books) ;
+
         // Get the search string from the input field.
         String queryString = mBookInput.getText().toString();
 
@@ -104,7 +87,8 @@ public class MainSearchBooks extends Activity implements View.OnClickListener  {
 
         // If the network is active and the search field is not empty, start a FetchBook AsyncTask.
         if (networkInfo != null && networkInfo.isConnected() && queryString.length()!=0) {
-            new FetchBook(mTitleText, mAuthorText, mBookInput).execute(queryString);
+            Context mContext = getApplicationContext();
+            new FetchBook(mBookInput, lvBook, mContext).execute(queryString);
         }
         // Otherwise update the TextView to tell the user there is no connection or no search term.
         else {

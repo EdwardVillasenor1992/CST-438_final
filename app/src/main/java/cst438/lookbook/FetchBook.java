@@ -1,9 +1,14 @@
 package cst438.lookbook;
 
+import android.content.Context;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -14,21 +19,27 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 
 public class FetchBook extends AsyncTask<String,Void,String>{
     // Variables for the search input field, and results TextViews
     private EditText mBookInput;
-    private TextView mTitleText;
-    private TextView mAuthorText;
+    private ListView lvBook;
+    private BookListAdapter adapter;
+    private List<Book> mBookList;
+    private Context mContext;
 
     // Class name for Log tag
     private static final String LOG_TAG = FetchBook.class.getSimpleName();
 
     // Constructor providing a reference to the views in MainActivity
-    public FetchBook(TextView titleText, TextView authorText, EditText bookInput) {
-        this.mTitleText = titleText;
-        this.mAuthorText = authorText;
+    public FetchBook(EditText bookInput, ListView lvBook, Context mContext) {
         this.mBookInput = bookInput;
+        this.lvBook = lvBook;
+        this.mContext = mContext;
+
+        mBookList = new ArrayList<>();
     }
 
 
@@ -139,6 +150,7 @@ public class FetchBook extends AsyncTask<String,Void,String>{
             int i = 0;
             String title = null;
             String authors = null;
+            String imageUrl = null;
 
             // Look for results in the items array, exiting when both the title and author
             // are found or when all items have been checked.
@@ -146,12 +158,15 @@ public class FetchBook extends AsyncTask<String,Void,String>{
                 // Get the current item information.
                 JSONObject book = itemsArray.getJSONObject(i);
                 JSONObject volumeInfo = book.getJSONObject("volumeInfo");
+                JSONObject imageLinks = volumeInfo.getJSONObject("imageLinks");
 
                 // Try to get the author and title from the current item,
                 // catch if either field is empty and move on.
                 try {
                     title = volumeInfo.getString("title");
                     authors = volumeInfo.getString("authors");
+                    imageUrl = imageLinks.getString("thumbnail");
+                    mBookList.add(new Book(i,title,authors,imageUrl));
                 } catch (Exception e){
                     e.printStackTrace();
                 }
@@ -162,20 +177,25 @@ public class FetchBook extends AsyncTask<String,Void,String>{
 
             // If both are found, display the result.
             if (title != null && authors != null){
-                mTitleText.setText(title);
-                mAuthorText.setText(authors);
+                adapter = new BookListAdapter(mContext, mBookList);
+                lvBook.setAdapter(adapter);
+
+                lvBook.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                        Toast.makeText(mContext, "Clicked product id : " + view.getTag(), Toast.LENGTH_SHORT).show();
+                    }
+                });
                 mBookInput.setText("");
             } else {
                 // If none are found, update the UI to show failed results.
-                mTitleText.setText("@string/no_result");
-                mAuthorText.setText("");
+                Toast.makeText(mContext, "No result found", Toast.LENGTH_SHORT).show();
             }
 
         } catch (Exception e){
             // If onPostExecute does not receive a proper JSON string,
             // update the UI to show failed results.
-            mTitleText.setText("@string/no_network");
-            mAuthorText.setText("");
+            Toast.makeText(mContext, "Network Error", Toast.LENGTH_SHORT).show();
             e.printStackTrace();
         }
     }
