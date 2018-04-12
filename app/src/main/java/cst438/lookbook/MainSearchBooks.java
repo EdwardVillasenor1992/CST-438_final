@@ -21,7 +21,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainSearchBooks extends Activity implements View.OnClickListener  {
+public class MainSearchBooks extends AppCompatActivity  {
     // private String name;
     // private EditText titleInput;
 
@@ -36,7 +36,6 @@ public class MainSearchBooks extends Activity implements View.OnClickListener  {
     // Variables for the search input field, and results TextViews.
 
     private ListView lvBook;
-
     private EditText mBookInput;
 
     @Override
@@ -95,11 +94,5 @@ public class MainSearchBooks extends Activity implements View.OnClickListener  {
                 Toast.makeText(getApplicationContext(), "Network Error", Toast.LENGTH_SHORT).show();
             }
         }
-    }
-
-
-    @Override
-    public void onClick(View view) {
-
     }
 }
