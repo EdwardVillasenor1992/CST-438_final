@@ -105,7 +105,7 @@ public class NewUser extends AppCompatActivity {
                     mPassword.setError("must use 5 characters or more");
                     return false;
                 }
-                if(!password.matches(".\\d+."))
+                if(!password.matches(".*\\d+.*"))
                 {
                     mPassword.setError("must contain a number");
                     return false;
