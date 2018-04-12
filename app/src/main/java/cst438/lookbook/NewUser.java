@@ -35,6 +35,9 @@ public class NewUser extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_user);
 
+        getSupportActionBar().setDisplayOptions(android.app.ActionBar.DISPLAY_SHOW_CUSTOM);
+        getSupportActionBar().setCustomView(R.layout.abs_layout);
+
         mFirstName = findViewById(R.id.new_user_fname);
         mLastName = findViewById(R.id.new_user_lname);
         mEmail = findViewById(R.id.new_user_email);

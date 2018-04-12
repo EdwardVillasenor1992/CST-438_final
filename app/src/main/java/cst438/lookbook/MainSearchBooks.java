@@ -1,5 +1,6 @@
 package cst438.lookbook;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.KeyEvent;
@@ -42,6 +43,9 @@ public class MainSearchBooks extends AppCompatActivity  {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_search_books);
+
+        getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+        getSupportActionBar().setCustomView(R.layout.abs_layout);
 
         // Initialize all the view variables.
         mBookInput = (EditText)findViewById(R.id.title_input);
