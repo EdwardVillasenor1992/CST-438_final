@@ -195,7 +195,7 @@ public class FetchBook extends AsyncTask<String,Void,String>{
         } catch (Exception e){
             // If onPostExecute does not receive a proper JSON string,
             // update the UI to show failed results.
-            Toast.makeText(mContext, "Network Error", Toast.LENGTH_SHORT).show();
+
             e.printStackTrace();
         }
     }

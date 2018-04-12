@@ -38,8 +38,7 @@ public class MainSearchBooks extends Activity implements View.OnClickListener  {
     private ListView lvBook;
 
     private EditText mBookInput;
-    private TextView mTitleText;
-    private TextView mAuthorText;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,8 +46,6 @@ public class MainSearchBooks extends Activity implements View.OnClickListener  {
 
         // Initialize all the view variables.
         mBookInput = (EditText)findViewById(R.id.title_input);
-        mTitleText = (TextView)findViewById(R.id.titleText);
-        mAuthorText = (TextView)findViewById(R.id.authorText);
 
         mBookInput.setOnKeyListener(new View.OnKeyListener() {
             public boolean onKey(View v, int keyCode, KeyEvent event) {
@@ -93,11 +90,9 @@ public class MainSearchBooks extends Activity implements View.OnClickListener  {
         // Otherwise update the TextView to tell the user there is no connection or no search term.
         else {
             if (queryString.length() == 0) {
-                mAuthorText.setText("");
-                mTitleText.setText("@string/no_result");
+                Toast.makeText(getApplicationContext(), "No result found", Toast.LENGTH_SHORT).show();
             } else {
-                mAuthorText.setText("");
-                mTitleText.setText("@string/no_network");
+                Toast.makeText(getApplicationContext(), "Network Error", Toast.LENGTH_SHORT).show();
             }
         }
     }
