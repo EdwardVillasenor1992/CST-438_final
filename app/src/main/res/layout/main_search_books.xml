@@ -47,45 +47,21 @@
         android:inputType="text"
         tools:ignore="RtlCompat" />
 
-    <RadioButton
-        android:id="@+id/radioButtonTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/title_input"
-        android:layout_alignParentStart="true"
-        tools:ignore="RtlCompat" />
-
-    <RadioButton
-        android:id="@+id/radioButtonAuthor"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/author_input"
-        android:layout_alignParentStart="true"
-        tools:ignore="RtlCompat" />
-
-    <RadioButton
-        android:id="@+id/radioButtonISBN"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/ISBN_input"
-        android:layout_alignParentStart="true"
-        android:paddingBottom="1dp"
-        tools:ignore="RtlCompat" />
-
     <ImageButton
         android:id="@+id/searchBookButton"
         android:layout_width="132dp"
-        android:layout_height="147dp"
+        android:layout_height="165dp"
         android:layout_alignParentEnd="true"
-        android:layout_alignParentTop="true"
+        android:layout_alignTop="@+id/switchTitle"
+        android:layout_marginTop="-5dp"
         app:srcCompat="?android:attr/actionModeFindDrawable"
-        tools:ignore="NewApi,RtlCompat"
+        tools:ignore="NewApi,RtlCompat,UnknownId"
         tools:targetApi="lollipop" />
 
     <ListView
         android:id="@+id/listview_books"
         android:layout_width="wrap_content"
-        android:layout_height="362dp"
+        android:layout_height="447dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:background="#94EAFF"
@@ -94,5 +70,29 @@
         android:paddingLeft="22dp"
         android:paddingRight="22dp"
         android:paddingTop="22dp" />
+
+    <Switch
+        android:id="@+id/switchTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/title_input"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true" />
+
+    <Switch
+        android:id="@+id/switchAuthor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/author_input"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true" />
+
+    <Switch
+        android:id="@+id/switchISBN"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/ISBN_input"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true" />
 
 </RelativeLayout>
