@@ -14,6 +14,8 @@
         <RelativeLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
             android:layout_weight="1">
 
             <TextView
@@ -53,7 +55,7 @@
         </RelativeLayout>
 
     </LinearLayout>
-    
+
     <View
         android:layout_below="@+id/book_layout"
         android:layout_width="match_parent"

@@ -11,11 +11,12 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="6dp"
+        android:id="@+id/line1"
         android:background="#000000"/>
 
     <EditText
         android:id="@+id/title_input"
-        android:layout_width="wrap_content"
+        android:layout_width="200dp"
         android:layout_height="47dp"
         android:layout_alignParentTop="true"
         android:layout_alignStart="@+id/ISBN_input"
@@ -28,9 +29,8 @@
         android:id="@+id/author_input"
         android:layout_width="wrap_content"
         android:layout_height="47dp"
-        android:layout_alignParentStart="true"
         android:layout_below="@+id/title_input"
-        android:layout_marginStart="39dp"
+        android:layout_toEndOf="@+id/title_icon"
         android:ems="10"
         android:hint="Author"
         android:inputType="text"
@@ -40,28 +40,65 @@
         android:id="@+id/ISBN_input"
         android:layout_width="wrap_content"
         android:layout_height="47dp"
-        android:layout_alignStart="@+id/author_input"
+        android:layout_toStartOf="@+id/searchBookButton"
         android:layout_below="@+id/author_input"
         android:ems="10"
         android:hint="ISBN-13"
         android:inputType="text"
         tools:ignore="RtlCompat" />
 
+    <ImageView
+        android:id="@+id/title_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="47dp"
+        android:layout_toLeftOf="@+id/title_input"
+        android:layout_below="@+id/line1"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:src="@drawable/title"/>
+
+    <ImageView
+        android:id="@+id/author_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="47dp"
+        android:layout_toLeftOf="@+id/author_input"
+        android:layout_below="@+id/title_icon"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:src="@drawable/author"/>
+
+    <ImageView
+        android:id="@+id/isbn_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="47dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/author_input"
+        android:layout_toLeftOf="@+id/ISBN_input"
+        android:src="@drawable/isbn" />
+
     <ImageButton
         android:id="@+id/searchBookButton"
         android:layout_width="132dp"
         android:layout_height="165dp"
         android:layout_alignParentEnd="true"
-        android:layout_alignTop="@+id/switchTitle"
-        android:layout_marginTop="-5dp"
+        android:layout_below="@+id/line1"
         app:srcCompat="?android:attr/actionModeFindDrawable"
         tools:ignore="NewApi,RtlCompat,UnknownId"
         tools:targetApi="lollipop" />
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="6dp"
+        android:id="@+id/line2"
+        android:layout_below="@+id/searchBookButton"
+        android:background="#000000"/>
+
     <ListView
+        android:layout_below="@+id/line2"
         android:id="@+id/listview_books"
         android:layout_width="wrap_content"
-        android:layout_height="447dp"
+        android:layout_height="300dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:background="#94EAFF"
@@ -70,29 +107,5 @@
         android:paddingLeft="22dp"
         android:paddingRight="22dp"
         android:paddingTop="22dp" />
-
-    <Switch
-        android:id="@+id/switchTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/title_input"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true" />
-
-    <Switch
-        android:id="@+id/switchAuthor"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/author_input"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true" />
-
-    <Switch
-        android:id="@+id/switchISBN"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/ISBN_input"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true" />
 
 </RelativeLayout>
