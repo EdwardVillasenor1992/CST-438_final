@@ -5,12 +5,14 @@ public class Book {
     private String title;
     private String author;
     private String imagelink;
+    private String apiId;
 
-    public Book(int id, String title, String author, String imagelink){
+    public Book(int id, String title, String author, String imagelink, String apiId){
         this.id = id;
         this.title = title;
         this.author = author;
         this.imagelink = imagelink;
+        this.apiId = apiId;
     }
 
     public int getId() {
@@ -45,5 +47,8 @@ public class Book {
         this.imagelink = imagelink;
     }
 
+    public String getApiId() { return apiId; }
+
+    public void setApiId(String apiId) { this.apiId = apiId; }
 
 }

@@ -1,9 +1,12 @@
 package cst438.lookbook;
 
 import android.content.Context;
+import android.content.Intent;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -16,6 +19,7 @@ public class BookListAdapter extends BaseAdapter{
     private Context mContext;
     private List<Book> mBookList;
     private ImageView ivCover;
+    private String idBook;
 
     public BookListAdapter(Context mContext, List<Book> mBookList) {
         this.mContext = mContext;
@@ -43,9 +47,21 @@ public class BookListAdapter extends BaseAdapter{
         TextView tvTitle = (TextView)v.findViewById(R.id.title);
         TextView tvAuthor = (TextView)v.findViewById(R.id.author);
         ivCover = (ImageView)v.findViewById(R.id.coverimage);
+        Button reviewButton = (Button)v.findViewById(R.id.review_button);
         tvTitle.setText(mBookList.get(i).getTitle());
         tvAuthor.setText(mBookList.get(i).getAuthor());
         loadImageFromUrl(mBookList.get(i).getImagelink());
+        idBook = mBookList.get(i).getApiId();
+        reviewButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(mContext, ReviewPage.class);
+                intent.putExtra("idBook", idBook);
+                mContext.startActivity(intent);
+            }
+
+
+        });
         v.setTag(mBookList.get(i).getId());
         return v;
     }

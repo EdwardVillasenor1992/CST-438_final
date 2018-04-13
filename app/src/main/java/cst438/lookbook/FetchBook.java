@@ -150,6 +150,7 @@ public class FetchBook extends AsyncTask<String,Void,String>{
             int i = 0;
             String title = null;
             String authors = null;
+            String apiId = null;
             String imageUrl = null;
 
             // Look for results in the items array, exiting when both the title and author
@@ -163,10 +164,11 @@ public class FetchBook extends AsyncTask<String,Void,String>{
                 // Try to get the author and title from the current item,
                 // catch if either field is empty and move on.
                 try {
+                    apiId = book.getString("id");
                     title = volumeInfo.getString("title");
                     authors = volumeInfo.getString("authors");
                     imageUrl = imageLinks.getString("thumbnail");
-                    mBookList.add(new Book(i,title,authors,imageUrl));
+                    mBookList.add(new Book(i,title,authors,imageUrl,apiId));
                 } catch (Exception e){
                     e.printStackTrace();
                 }
