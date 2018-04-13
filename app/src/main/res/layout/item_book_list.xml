@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="#FFFFFF"
     android:layout_width="fill_parent"
     android:layout_height="150dp"
@@ -60,7 +61,6 @@
         android:layout_below="@+id/book_layout"
         android:layout_width="match_parent"
         android:layout_height="4dp"
-        android:layout_alignParentBottom="true"
         android:background="#000000"
         android:id="@+id/line"/>
 
@@ -69,53 +69,82 @@
         android:layout_height="match_parent"
         android:orientation="horizontal"
         android:weightSum="3"
+        android:gravity="center"
         android:layout_below="@+id/line">
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_weight="1">
-            <Button
-                android:id="@+id/book_info_button"
+            <com.dd.ShadowLayout
+                android:layout_marginTop="16dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:background="#00ABCC"
-                android:layout_gravity="center"
-                android:textColor="#FFFFFF"
-                android:text="Book Info" />
+                app:sl_shadowRadius="4dp"
+                app:sl_shadowColor="#AA000000"
+                app:sl_dx="0dp"
+                app:sl_dy="0dp"
+                app:sl_cornerRadius="0dp">
+                <Button
+                    android:id="@+id/book_info_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:background="#00ABCC"
+                    android:layout_gravity="center"
+                    android:textColor="#FFFFFF"
+                    android:text="Book Info" />
+            </com.dd.ShadowLayout>
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:orientation="vertical">
-            <Button
-                android:id="@+id/review_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+            <com.dd.ShadowLayout
+                android:layout_marginTop="16dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:background="#00ABCC"
-                android:layout_gravity="center"
-                android:textColor="#FFFFFF"
-                android:text="Review" />
+                app:sl_shadowRadius="4dp"
+                app:sl_shadowColor="#AA000000"
+                app:sl_dx="0dp"
+                app:sl_dy="0dp"
+                app:sl_cornerRadius="0dp">
+                <Button
+                    android:id="@+id/review_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:background="#00ABCC"
+                    android:layout_gravity="center"
+                    android:textColor="#FFFFFF"
+                    android:text="Review" />
+            </com.dd.ShadowLayout>
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:orientation="horizontal">
-            <Button
-                android:id="@+id/location_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+            <com.dd.ShadowLayout
+                android:layout_marginTop="16dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_gravity="center"
-                android:background="#00ABCC"
-                android:textColor="#FFFFFF"
-                android:text="Find Store" />
+                app:sl_shadowRadius="4dp"
+                app:sl_shadowColor="#AA000000"
+                app:sl_dx="0dp"
+                app:sl_dy="0dp"
+                app:sl_cornerRadius="0dp">
+                <Button
+                    android:id="@+id/location_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_gravity="center"
+                    android:background="#00ABCC"
+                    android:textColor="#FFFFFF"
+                    android:text="Find Store" />
+            </com.dd.ShadowLayout>
         </LinearLayout>
     </LinearLayout>
 

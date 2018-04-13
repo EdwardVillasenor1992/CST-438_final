@@ -37,7 +37,9 @@ public class MainSearchBooks extends AppCompatActivity  {
     // Variables for the search input field, and results TextViews.
 
     private ListView lvBook;
-    private EditText mBookInput;
+    private EditText mTitleInput;
+    private EditText mAuthorInput;
+    private EditText mISBNInput;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,14 +50,39 @@ public class MainSearchBooks extends AppCompatActivity  {
         getSupportActionBar().setCustomView(R.layout.abs_layout);
 
         // Initialize all the view variables.
-        mBookInput = (EditText)findViewById(R.id.title_input);
-
-        mBookInput.setOnKeyListener(new View.OnKeyListener() {
+        mTitleInput = (EditText)findViewById(R.id.title_input);
+        mTitleInput.setOnKeyListener(new View.OnKeyListener() {
             public boolean onKey(View v, int keyCode, KeyEvent event) {
                 // If the event is a key-down event on the "enter" button
                 if ((event.getAction() == KeyEvent.ACTION_DOWN) &&
                         (keyCode == KeyEvent.KEYCODE_ENTER)) {
-                    searchBooks(mBookInput);
+                    searchBooksByTitle(mTitleInput);
+                    return true;
+                }
+                return false;
+            }
+        });
+
+        mAuthorInput = (EditText)findViewById(R.id.author_input);
+        mAuthorInput.setOnKeyListener(new View.OnKeyListener() {
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                // If the event is a key-down event on the "enter" button
+                if ((event.getAction() == KeyEvent.ACTION_DOWN) &&
+                        (keyCode == KeyEvent.KEYCODE_ENTER)) {
+                    searchBooksByAuthor(mAuthorInput);
+                    return true;
+                }
+                return false;
+            }
+        });
+
+        mISBNInput = (EditText)findViewById(R.id.ISBN_input);
+        mISBNInput.setOnKeyListener(new View.OnKeyListener() {
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                // If the event is a key-down event on the "enter" button
+                if ((event.getAction() == KeyEvent.ACTION_DOWN) &&
+                        (keyCode == KeyEvent.KEYCODE_ENTER)) {
+                    searchBooksByISBN(mISBNInput);
                     return true;
                 }
                 return false;
@@ -68,11 +95,11 @@ public class MainSearchBooks extends AppCompatActivity  {
      *
      * @param view The view (Button) that was clicked.
      */
-    public void searchBooks(View view) {
+    public void searchBooksByTitle(View view) {
         lvBook = (ListView)findViewById(R.id.listview_books) ;
 
         // Get the search string from the input field.
-        String queryString = mBookInput.getText().toString();
+        String queryString = mTitleInput.getText().toString();
 
         // Hide the keyboard when the button is pushed.
         InputMethodManager inputManager = (InputMethodManager)
@@ -88,7 +115,71 @@ public class MainSearchBooks extends AppCompatActivity  {
         // If the network is active and the search field is not empty, start a FetchBook AsyncTask.
         if (networkInfo != null && networkInfo.isConnected() && queryString.length()!=0) {
             Context mContext = getApplicationContext();
-            new FetchBook(mBookInput, lvBook, mContext).execute(queryString);
+            new FetchBook(mTitleInput, lvBook, mContext).execute(queryString);
+        }
+        // Otherwise update the TextView to tell the user there is no connection or no search term.
+        else {
+            if (queryString.length() == 0) {
+                Toast.makeText(getApplicationContext(), "No result found", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(getApplicationContext(), "Network Error", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+    public void searchBooksByAuthor(View view) {
+        lvBook = (ListView)findViewById(R.id.listview_books) ;
+
+        // Get the search string from the input field.
+        String queryString = mAuthorInput.getText().toString();
+
+        // Hide the keyboard when the button is pushed.
+        InputMethodManager inputManager = (InputMethodManager)
+                getSystemService(Context.INPUT_METHOD_SERVICE);
+        inputManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(),
+                InputMethodManager.HIDE_NOT_ALWAYS);
+
+        // Check the status of the network connection.
+        ConnectivityManager connMgr = (ConnectivityManager)
+                getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
+
+        // If the network is active and the search field is not empty, start a FetchBook AsyncTask.
+        if (networkInfo != null && networkInfo.isConnected() && queryString.length()!=0) {
+            Context mContext = getApplicationContext();
+            new FetchBook(mAuthorInput, lvBook, mContext).execute(queryString);
+        }
+        // Otherwise update the TextView to tell the user there is no connection or no search term.
+        else {
+            if (queryString.length() == 0) {
+                Toast.makeText(getApplicationContext(), "No result found", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(getApplicationContext(), "Network Error", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+    public void searchBooksByISBN(View view) {
+        lvBook = (ListView)findViewById(R.id.listview_books) ;
+
+        // Get the search string from the input field.
+        String queryString = mISBNInput.getText().toString();
+
+        // Hide the keyboard when the button is pushed.
+        InputMethodManager inputManager = (InputMethodManager)
+                getSystemService(Context.INPUT_METHOD_SERVICE);
+        inputManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(),
+                InputMethodManager.HIDE_NOT_ALWAYS);
+
+        // Check the status of the network connection.
+        ConnectivityManager connMgr = (ConnectivityManager)
+                getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
+
+        // If the network is active and the search field is not empty, start a FetchBook AsyncTask.
+        if (networkInfo != null && networkInfo.isConnected() && queryString.length()!=0) {
+            Context mContext = getApplicationContext();
+            new FetchBook(mISBNInput, lvBook, mContext).execute(queryString);
         }
         // Otherwise update the TextView to tell the user there is no connection or no search term.
         else {

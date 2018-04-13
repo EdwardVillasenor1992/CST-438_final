@@ -67,8 +67,8 @@ public class BookListAdapter extends BaseAdapter{
     }
 
     private void loadImageFromUrl(String url){
-        Picasso.with(mContext).load(url).placeholder(R.mipmap.ic_launcher)
-                .error(R.mipmap.ic_launcher)
+        Picasso.with(mContext).load(url).placeholder(R.drawable.no_cover)
+                .error(R.drawable.no_cover)
                 .into(ivCover, new com.squareup.picasso.Callback(){
 
                     @Override
