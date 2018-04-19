@@ -147,7 +147,7 @@ public class MainSearchBooks extends AppCompatActivity  {
         // If the network is active and the search field is not empty, start a FetchBook AsyncTask.
         if (networkInfo != null && networkInfo.isConnected() && queryString.length()!=0) {
             Context mContext = getApplicationContext();
-            new FetchBook(mAuthorInput, lvBook, mContext).execute(queryString);
+            new FetchBookAuthor(mAuthorInput, lvBook, mContext).execute(queryString);
         }
         // Otherwise update the TextView to tell the user there is no connection or no search term.
         else {
