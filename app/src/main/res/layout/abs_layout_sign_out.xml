@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="wrap_content" >
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_centerHorizontal="true"
+        android:text="LookBook"
+        android:textColor="#000000"
+        android:textStyle="bold"
+        android:id="@+id/appBarTittle"
+        android:textSize="24dp" />
+
+    <ImageView
+        android:id="@+id/signout_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:layout_marginLeft="70dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:layout_toRightOf="@id/appBarTittle"
+        android:layout_toEndOf="@id/appBarTittle"
+        android:src="@drawable/signout"
+        />
+
+
+</RelativeLayout>

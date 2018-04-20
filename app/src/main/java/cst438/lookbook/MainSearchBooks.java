@@ -2,6 +2,7 @@ package cst438.lookbook;
 
 import android.app.ActionBar;
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
@@ -14,6 +15,7 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -36,6 +38,7 @@ public class MainSearchBooks extends AppCompatActivity  {
 
     // Variables for the search input field, and results TextViews.
 
+    private ImageView mSignOut;
     private ListView lvBook;
     private EditText mTitleInput;
     private EditText mAuthorInput;
@@ -47,9 +50,17 @@ public class MainSearchBooks extends AppCompatActivity  {
         setContentView(R.layout.main_search_books);
 
         getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
-        getSupportActionBar().setCustomView(R.layout.abs_layout);
+        getSupportActionBar().setCustomView(R.layout.abs_layout_sign_out);
 
         // Initialize all the view variables.
+        mSignOut = (ImageView)findViewById(R.id.signout_icon);
+        mSignOut.setOnClickListener(new View.OnClickListener() {
+            //@Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getBaseContext(), SearchBookActivity.class);
+                startActivity(intent);
+            }
+        });
         mTitleInput = (EditText)findViewById(R.id.title_input);
         mTitleInput.setOnKeyListener(new View.OnKeyListener() {
             public boolean onKey(View v, int keyCode, KeyEvent event) {
