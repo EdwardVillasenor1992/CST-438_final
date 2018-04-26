@@ -4,7 +4,6 @@ import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.view.KeyEvent;
 import android.view.View;
 import android.content.Context;
@@ -15,15 +14,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,15 +44,6 @@ public class MainSearchBooks extends AppCompatActivity  {
     private EditText mAuthorInput;
     private EditText mISBNInput;
 
-   FirebaseAuth mAuth;
-   FirebaseAuth.AuthStateListener mAuthListener;
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        mAuth.addAuthStateListener(mAuthListener);
-    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,22 +54,11 @@ public class MainSearchBooks extends AppCompatActivity  {
 
         // Initialize all the view variables.
         mSignOut = (ImageView)findViewById(R.id.signout_icon);
-        mAuth = FirebaseAuth.getInstance();
-
-        mAuthListener = new FirebaseAuth.AuthStateListener() {
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                if(firebaseAuth.getCurrentUser() == null)
-                {
-                    startActivity(new Intent(MainSearchBooks.this, SearchBookActivity.class));
-                }
-            }
-        };
-
         mSignOut.setOnClickListener(new View.OnClickListener() {
             //@Override
             public void onClick(View v) {
-                mAuth.signOut();
+                Intent intent = new Intent(getBaseContext(), SearchBookActivity.class);
+                startActivity(intent);
             }
         });
         mTitleInput = (EditText)findViewById(R.id.title_input);
