@@ -1,14 +1,19 @@
 package cst438.lookbook;
 
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+
+import java.util.Calendar;
+import java.util.TimeZone;
 
 //import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 
@@ -63,21 +68,37 @@ public class SearchBookActivity extends android.support.v7.app.AppCompatActivity
                 }
                 else
                 {
+                    /////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+                    if(db.userTableDao().findUsersByUsername(name) == null)
+                    {
+                        AlertDialog.Builder builder = new AlertDialog.Builder(SearchBookActivity.this);
+                        builder.setTitle("does not exist");
+                        builder.setMessage("try another one");
+                        builder.setPositiveButton("ok", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which){
+
+                            }
+                        });
+
+                        AlertDialog alertDialog = builder.create();
+                        alertDialog.show();
+                    }
+                    else
+                    {
+                        Intent intent = new Intent(getBaseContext(), MainSearchBooks.class);
+                        intent.putExtra("username", name);
+                        intent.putExtra("userPassword", password);
+                        startActivity(intent);
 
 
-                    Toast.makeText(getApplicationContext(), "Login under development", Toast.LENGTH_SHORT).show();
-                    Toast.makeText(getApplicationContext(), "Username: " + name + " Password: " + password, Toast.LENGTH_SHORT).show();
+                    }
 
 
-                    //_____________________________________________________________________________________
-                    //passing values to next activity
-                    //use:
-                    // String name = getIntent().getStringExtra("username");
-                    // String password = getIntent().getStringExtra("userPassword");
-                    Intent intent = new Intent(getBaseContext(), MainSearchBooks.class);
-                    intent.putExtra("username", name);
-                    intent.putExtra("userPassword", password);
-                    startActivity(intent);
+                    //////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
                     //-----------------------------------------------------------------------------------
                 }
             }

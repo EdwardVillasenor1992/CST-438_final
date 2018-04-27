@@ -59,6 +59,7 @@ public class MainSearchBooks extends AppCompatActivity  {
             public void onClick(View v) {
                 Intent intent = new Intent(getBaseContext(), SearchBookActivity.class);
                 startActivity(intent);
+                finish();
             }
         });
         mTitleInput = (EditText)findViewById(R.id.title_input);
