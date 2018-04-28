@@ -25,6 +25,10 @@
         android:paddingTop="80dp"
         tools:layout_editor_absoluteX="0dp"
         tools:layout_editor_absoluteY="55dp" />
+   <TextView
+       android:id="@+id/bookReviews"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"/>
     </RelativeLayout>
 
 </android.support.constraint.ConstraintLayout>

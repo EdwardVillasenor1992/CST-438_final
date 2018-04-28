@@ -34,6 +34,7 @@
         <activity android:name=".MainSearchBooks"
             android:windowSoftInputMode="adjustPan"/>
         <activity android:name=".ReviewPage"></activity>
+        <activity android:name=".InfoPage"></activity>
         <activity android:name=".MapsActivity"></activity>
     </application>
 

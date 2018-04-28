@@ -48,6 +48,7 @@ public class BookListAdapter extends BaseAdapter{
         TextView tvAuthor = (TextView)v.findViewById(R.id.author);
         ivCover = (ImageView)v.findViewById(R.id.coverimage);
         Button reviewButton = (Button)v.findViewById(R.id.review_button);
+        Button infoButton = (Button)v.findViewById(R.id.book_info_button);
         Button mapButton = (Button)v.findViewById(R.id.location_button);
         tvTitle.setText(mBookList.get(i).getTitle());
         tvAuthor.setText(mBookList.get(i).getAuthor());
@@ -57,6 +58,16 @@ public class BookListAdapter extends BaseAdapter{
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(mContext, ReviewPage.class);
+                intent.putExtra("idBook", idBook);
+                mContext.startActivity(intent);
+            }
+
+
+        });
+        infoButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(mContext, InfoPage.class);
                 intent.putExtra("idBook", idBook);
                 mContext.startActivity(intent);
             }
