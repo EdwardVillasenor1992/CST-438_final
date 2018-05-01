@@ -30,6 +30,7 @@ import android.view.View;
 
 import android.widget.EditText;
 
+import android.widget.TextView;
 import android.widget.Toast;
 
 
@@ -72,7 +73,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         GoogleApiClient.OnConnectionFailedListener,
 
-        LocationListener{
+        LocationListener {
 
     private GoogleMap mMap;
 
@@ -88,7 +89,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     int PROXIMITY_RADIUS = 10000;
 
-    double latitude,longitude;
+    double latitude, longitude;
 
     @Override
 
@@ -126,21 +127,21 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
 
-        switch(requestCode)
+        switch (requestCode)
 
         {
 
             case REQUEST_LOCATION_CODE:
 
-                if(grantResults.length >0 && grantResults[0] == PackageManager.PERMISSION_GRANTED)
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED)
 
                 {
 
-                    if(ContextCompat.checkSelfPermission(this,Manifest.permission.ACCESS_FINE_LOCATION) !=  PackageManager.PERMISSION_GRANTED)
+                    if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED)
 
                     {
 
-                        if(client == null)
+                        if (client == null)
 
                         {
 
@@ -152,13 +153,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
                     }
 
-                }
-
-                else
+                } else
 
                 {
 
-                    Toast.makeText(this,"Permission Denied" , Toast.LENGTH_LONG).show();
+                    Toast.makeText(this, "Permission Denied", Toast.LENGTH_LONG).show();
 
                 }
 
@@ -191,6 +190,29 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public void onMapReady(GoogleMap googleMap) {
 
         mMap = googleMap;
+
+        mMap.setInfoWindowAdapter(new GoogleMap.InfoWindowAdapter() {
+
+            @Override
+            // Return null here, so that getInfoContents() is called next.
+            public View getInfoWindow(Marker arg0) {
+                return null;
+            }
+
+            @Override
+            public View getInfoContents(Marker marker) {
+                // Inflate the layouts for the info window, title and snippet.
+                View infoWindow = getLayoutInflater().inflate(R.layout.custom_info_contents, null);
+
+                TextView title = ((TextView) infoWindow.findViewById(R.id.title));
+                title.setText(marker.getTitle());
+
+                TextView snippet = ((TextView) infoWindow.findViewById(R.id.snippet));
+                snippet.setText(marker.getSnippet());
+
+                return infoWindow;
+            }
+        });
 
 
 
@@ -232,7 +254,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         lastlocation = location;
 
-        if(currentLocationmMarker != null)
+        if (currentLocationmMarker != null)
 
         {
 
@@ -242,9 +264,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         }
 
-        Log.d("lat = ",""+latitude);
+        Log.d("lat = ", "" + latitude);
 
-        LatLng latLng = new LatLng(location.getLatitude() , location.getLongitude());
+        LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
 
         MarkerOptions markerOptions = new MarkerOptions();
 
@@ -262,11 +284,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
 
 
-        if(client != null)
+        if (client != null)
 
         {
 
-            LocationServices.FusedLocationApi.removeLocationUpdates(client,this);
+            LocationServices.FusedLocationApi.removeLocationUpdates(client, this);
 
         }
 
@@ -284,77 +306,78 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
 
 
-         switch(v.getId())
+        switch (v.getId())
 
         {
 
-            /* case R.id.B_search:
+    /* case R.id.B_search:
 
-                EditText tf_location =  findViewById(R.id.TF_location);
+        EditText tf_location =  findViewById(R.id.TF_location);
 
-                String location = tf_location.getText().toString();
+        String location = tf_location.getText().toString();
 
-                List<Address> addressList;
-
-
+        List<Address> addressList;
 
 
 
-                if(!location.equals(""))
+
+
+        if(!location.equals(""))
+
+        {
+
+            Geocoder geocoder = new Geocoder(this);
+
+
+
+            try {
+
+                addressList = geocoder.getFromLocationName(location, 5);
+
+
+
+                if(addressList != null)
 
                 {
 
-                    Geocoder geocoder = new Geocoder(this);
+                    for(int i = 0;i<addressList.size();i++)
 
+                    {
 
+                        LatLng latLng = new LatLng(addressList.get(i).getLatitude() , addressList.get(i).getLongitude());
 
-                    try {
+                        MarkerOptions markerOptions = new MarkerOptions();
 
-                        addressList = geocoder.getFromLocationName(location, 5);
+                        markerOptions.position(latLng);
 
+                        markerOptions.title(location);
 
+                        mMap.addMarker(markerOptions);
 
-                        if(addressList != null)
+                        mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
 
-                        {
-
-                            for(int i = 0;i<addressList.size();i++)
-
-                            {
-
-                                LatLng latLng = new LatLng(addressList.get(i).getLatitude() , addressList.get(i).getLongitude());
-
-                                MarkerOptions markerOptions = new MarkerOptions();
-
-                                markerOptions.position(latLng);
-
-                                markerOptions.title(location);
-
-                                mMap.addMarker(markerOptions);
-
-                                mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
-
-                                mMap.animateCamera(CameraUpdateFactory.zoomTo(10));
-
-                            }
-
-                        }
-
-                    } catch (IOException e) {
-
-                        e.printStackTrace();
+                        mMap.animateCamera(CameraUpdateFactory.zoomTo(10));
 
                     }
 
                 }
 
-                break;  */
+            } catch (IOException e) {
+
+                e.printStackTrace();
+
+            }
+
+        }
+
+        break;  */
 
             case R.id.B_bookstores:
 
                 mMap.clear();
 
                 String bookstore = "library";
+
 
                 String url = getUrl(latitude, longitude, bookstore);
 
@@ -380,7 +403,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
 
 
-    private String getUrl(double latitude , double longitude , String nearbyPlace)
+    private String getUrl(double latitude, double longitude, String nearbyPlace)
 
     {
 
@@ -388,19 +411,19 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         StringBuilder googlePlaceUrl = new StringBuilder("https://maps.googleapis.com/maps/api/place/nearbysearch/json?");
 
-        googlePlaceUrl.append("location="+latitude+","+longitude);
+        googlePlaceUrl.append("location=" + latitude + "," + longitude);
 
-        googlePlaceUrl.append("&radius="+PROXIMITY_RADIUS);
+        googlePlaceUrl.append("&radius=" + PROXIMITY_RADIUS);
 
-        googlePlaceUrl.append("&type="+nearbyPlace);
+        googlePlaceUrl.append("&type=" + nearbyPlace);
 
         googlePlaceUrl.append("&sensor=true");
 
-        googlePlaceUrl.append("&key="+"AIzaSyDy4Wt0xfHLm7_6Kh7qrQeBT8PQsRtQWtU");
+        googlePlaceUrl.append("&key=" + "AIzaSyDy4Wt0xfHLm7_6Kh7qrQeBT8PQsRtQWtU");
 
 
 
-        Log.d("MapsActivity", "url = "+googlePlaceUrl.toString());
+        Log.d("MapsActivity", "url = " + googlePlaceUrl.toString());
 
 
 
@@ -428,7 +451,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
 
 
-        if(ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION ) == PackageManager.PERMISSION_GRANTED)
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED)
 
         {
 
@@ -446,25 +469,27 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     {
 
-        if(ContextCompat.checkSelfPermission(this,Manifest.permission.ACCESS_FINE_LOCATION)  != PackageManager.PERMISSION_GRANTED )
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED)
 
         {
 
 
 
-            if (ActivityCompat.shouldShowRequestPermissionRationale(this,Manifest.permission.ACCESS_FINE_LOCATION))
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.ACCESS_FINE_LOCATION))
 
             {
 
-                ActivityCompat.requestPermissions(this,new String[] {Manifest.permission.ACCESS_FINE_LOCATION },REQUEST_LOCATION_CODE);
+                ActivityCompat.requestPermissions(this, new String[] {
+                        Manifest.permission.ACCESS_FINE_LOCATION
+                }, REQUEST_LOCATION_CODE);
 
-            }
-
-            else
+            } else
 
             {
 
-                ActivityCompat.requestPermissions(this,new String[] {Manifest.permission.ACCESS_FINE_LOCATION },REQUEST_LOCATION_CODE);
+                ActivityCompat.requestPermissions(this, new String[] {
+                        Manifest.permission.ACCESS_FINE_LOCATION
+                }, REQUEST_LOCATION_CODE);
 
             }
 
@@ -472,9 +497,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
 
 
-        }
-
-        else
+        } else
 
             return true;
 
