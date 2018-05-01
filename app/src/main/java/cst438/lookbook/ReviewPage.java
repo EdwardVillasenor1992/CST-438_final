@@ -37,7 +37,7 @@ public class ReviewPage extends AppCompatActivity{
 
         String bookUrl = "https://www.googleapis.com/books/v1/volumes/" + passedID;
 
-        Toast.makeText(getApplicationContext(), "Book url:" + bookUrl, Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getApplicationContext(), "Book url:" + bookUrl, Toast.LENGTH_SHORT).show();
 
         // Instantiate the RequestQueue.
         final RequestQueue queue = Volley.newRequestQueue(this);
@@ -77,9 +77,10 @@ public class ReviewPage extends AppCompatActivity{
                             e.printStackTrace();
                         }
 
+                        String htmlTextStr = Html.fromHtml(description).toString();
                         bookTitle.setText(name);
-                        bookSummary.setText(description);
-                        Toast.makeText(getApplicationContext(), "Book isbn:" + isbn10, Toast.LENGTH_SHORT).show();
+                        bookSummary.setText(htmlTextStr);
+                        //Toast.makeText(getApplicationContext(), "Book isbn:" + isbn10, Toast.LENGTH_SHORT).show();
                         queue.stop();
                     }
                 },

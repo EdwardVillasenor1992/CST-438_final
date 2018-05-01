@@ -93,7 +93,7 @@
                     android:background="#00ABCC"
                     android:layout_gravity="center"
                     android:textColor="#FFFFFF"
-                    android:text="Book Info" />
+                    android:text="Reviews" />
             </com.dd.ShadowLayout>
         </LinearLayout>
 
@@ -118,7 +118,7 @@
                     android:background="#00ABCC"
                     android:layout_gravity="center"
                     android:textColor="#FFFFFF"
-                    android:text="Review" />
+                    android:text="Book Info" />
             </com.dd.ShadowLayout>
         </LinearLayout>
 
