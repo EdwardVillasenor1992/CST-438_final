@@ -3,6 +3,16 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="wrap_content" >
 
+    <ImageView
+        android:id="@+id/wishlist_icon"
+        android:layout_width="70dp"
+        android:layout_height="30dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:clickable="true"
+        android:focusable="true"
+        android:src="@drawable/book_shelf" />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
