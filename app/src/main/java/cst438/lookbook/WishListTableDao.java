@@ -6,6 +6,8 @@ import android.arch.persistence.room.Delete;
 import android.arch.persistence.room.OnConflictStrategy;
 import android.arch.persistence.room.Query;
 
+import java.util.List;
+
 @Dao
 public interface WishListTableDao {
     @Query("select count(*) from wishListTable")
@@ -22,6 +24,11 @@ public interface WishListTableDao {
 
     @Query("select * from wishListTable where ISBN = :isbn")
     UserTable findByISBN(String isbn);
+
+
+    @Query("select * from wishListTable")
+    List<WishListTable> viewList();
+
 
     @Delete
     void deleteItem(WishListTable wishList);
