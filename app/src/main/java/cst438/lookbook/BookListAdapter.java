@@ -1,7 +1,10 @@
 package cst438.lookbook;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.nfc.Tag;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +12,7 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
@@ -20,6 +24,8 @@ public class BookListAdapter extends BaseAdapter{
     private List<Book> mBookList;
     private ImageView ivCover;
     private String idBook;
+    private LookBookDB db;
+
 
     public BookListAdapter(Context mContext, List<Book> mBookList) {
         this.mContext = mContext;
@@ -45,11 +51,12 @@ public class BookListAdapter extends BaseAdapter{
     public View getView(int i, View view, ViewGroup viewGroup) {
         View v = View.inflate(mContext, R.layout.item_book_list, null);
         TextView tvTitle = (TextView)v.findViewById(R.id.title);
-        TextView tvAuthor = (TextView)v.findViewById(R.id.author);
+        final TextView tvAuthor = (TextView)v.findViewById(R.id.author);
         ivCover = (ImageView)v.findViewById(R.id.coverimage);
         Button reviewButton = (Button)v.findViewById(R.id.review_button);
         Button infoButton = (Button)v.findViewById(R.id.book_info_button);
         Button mapButton = (Button)v.findViewById(R.id.location_button);
+        Button addButton = v.findViewById(R.id.add_wishlist_button);
         tvTitle.setText(mBookList.get(i).getTitle());
         tvAuthor.setText(mBookList.get(i).getAuthor());
         loadImageFromUrl(mBookList.get(i).getImagelink());
@@ -84,6 +91,32 @@ public class BookListAdapter extends BaseAdapter{
 
 
         });
+        addButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                
+//                db = LookBookDB.getInstance(mContext);
+//                WishListTable item = new WishListTable();
+//                db.wishListTableDao().viewList();
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+                builder.setTitle("1 item added");
+                builder.setMessage("new item in wish list");
+                builder.setPositiveButton("ok", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which){
+
+                    }
+                });
+                AlertDialog alertDialog = builder.create();
+                alertDialog.show();
+
+
+
+            }
+        });
+
         v.setTag(mBookList.get(i).getId());
         return v;
     }
