@@ -74,7 +74,7 @@ public class BookListAdapter extends BaseAdapter{
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(mContext, InfoPage.class);
-                intent.putExtra("idBook", idBook);
+                intent.putExtra("idBook", mBookList.get(i).getApiId());
                 mContext.startActivity(intent);
             }
 
@@ -84,7 +84,6 @@ public class BookListAdapter extends BaseAdapter{
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(mContext, MapsActivity.class);
-                intent.putExtra("idBook", idBook);
                 mContext.startActivity(intent);
             }
 
