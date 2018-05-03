@@ -48,7 +48,7 @@ public class BookListAdapter extends BaseAdapter{
     }
 
     @Override
-    public View getView(int i, View view, ViewGroup viewGroup) {
+    public View getView(final int i, View view, ViewGroup viewGroup) {
         View v = View.inflate(mContext, R.layout.item_book_list, null);
         TextView tvTitle = (TextView)v.findViewById(R.id.title);
         final TextView tvAuthor = (TextView)v.findViewById(R.id.author);
@@ -60,12 +60,11 @@ public class BookListAdapter extends BaseAdapter{
         tvTitle.setText(mBookList.get(i).getTitle());
         tvAuthor.setText(mBookList.get(i).getAuthor());
         loadImageFromUrl(mBookList.get(i).getImagelink());
-        idBook = mBookList.get(i).getApiId();
         reviewButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(mContext, ReviewPage.class);
-                intent.putExtra("idBook", idBook);
+                intent.putExtra("idBook", mBookList.get(i).getApiId());
                 mContext.startActivity(intent);
             }
 
