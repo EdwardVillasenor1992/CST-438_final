@@ -1,9 +1,14 @@
 package cst438.lookbook;
 
+import android.app.ActionBar;
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 //import android.support.v7.app.AppCompatActivity;
+import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.webkit.WebView;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,17 +29,32 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
-public class InfoPage extends Activity{
+public class InfoPage extends AppCompatActivity{
 
    String passedID;
    String isbn10 = "no ISBN";
    String gurl ="https://www.bing.com";
+   ImageView mSignOut;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.info_page);
+
+        getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+        getSupportActionBar().setCustomView(R.layout.abs_layout_sign_out);
+
+        // Initialize all the view variables.
+        mSignOut = (ImageView)findViewById(R.id.signout_icon);
+        mSignOut.setOnClickListener(new View.OnClickListener() {
+            //@Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getBaseContext(), SearchBookActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
 
         //final TextView bookTitle = (TextView) findViewById(R.id.goodReadsBookTitle);
         final WebView goodReadsPage = (WebView) findViewById(R.id.webView);
